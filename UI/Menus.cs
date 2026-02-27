@@ -47,6 +47,7 @@ public class Menus
                     
                 }
             }
+            Console.WriteLine();
             Console.WriteLine($"Tracking stopped. You worked for {_service.GetTimeSpan().TotalHours:F2} hours.");
         }
     }
