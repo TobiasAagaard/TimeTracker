@@ -1,4 +1,5 @@
 ﻿using TimeTracker.UI;
+using TimeTracker.Services;
 
 namespace TimeTracker
 {
@@ -7,6 +8,10 @@ namespace TimeTracker
         static void Main(string[] args) 
         {
             Menus.ShowBanner();
+
+            var timeTrackingService = new TimeTrackingService();
+            var timeTrackingMenu = new Menus.TimeTrackingMenu(timeTrackingService);
+            timeTrackingMenu.Run();
         }
     }
 }
