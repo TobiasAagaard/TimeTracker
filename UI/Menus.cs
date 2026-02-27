@@ -24,7 +24,7 @@ public class Menus
         private readonly TimeTrackingService _service;
         public TimeTrackingMenu(TimeTrackingService service)
         {
-            _service = service;
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
         public void Run()
         {
