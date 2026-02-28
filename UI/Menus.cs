@@ -21,8 +21,8 @@ public class Menus
 
     public class TimeTrackingMenu
     {
-        private readonly TimeTrackingService _service;
-        public TimeTrackingMenu(TimeTrackingService service)
+        private readonly ITimeTrackingService _service;
+        public TimeTrackingMenu(ITimeTrackingService service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }

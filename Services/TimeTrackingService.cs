@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace TimeTracker.Services;
 
-public class TimeTrackingService
+public class TimeTrackingService : ITimeTrackingService
 {
     private readonly Stopwatch _stopwatch = new Stopwatch();
     
