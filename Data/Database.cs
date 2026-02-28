@@ -14,6 +14,12 @@ public class Database
 
     private void InitializeDatabase()
     {
+
+         var directory = Path.GetDirectoryName(_databasePath);
+        if (!string.IsNullOrWhiteSpace(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
         using var connection = new SqliteConnection($"Data Source={_databasePath}");
         connection.Open();
 
