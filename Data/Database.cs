@@ -8,6 +8,12 @@ public class Database
 
     public Database(string databasePath)
     {
+        ArgumentNullException.ThrowIfNull(databasePath);
+        if (string.IsNullOrWhiteSpace(databasePath))
+        {
+            throw new ArgumentException("Database path cannot be empty.", nameof(databasePath));
+        }
+
         _databasePath = databasePath;
         InitializeDatabase();
     }
