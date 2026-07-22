@@ -1,7 +1,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Timetracker.Models;
+namespace Timetracker.Cli.Models;
 
 public sealed class TimeSlot
 {
