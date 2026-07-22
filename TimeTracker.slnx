@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/cli/">
+    <Project Path="cli/Timetracker.Cli/Timetracker.Cli.csproj" />
+  </Folder>
+</Solution>
