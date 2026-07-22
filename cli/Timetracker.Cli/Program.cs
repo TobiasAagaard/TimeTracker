@@ -22,8 +22,6 @@ services.AddSingleton<TimerView>();
 
 var provider = services.BuildServiceProvider();
 
-// 3. Create the database file and tables on first run.
 await provider.GetRequiredService<TimeTrackerDbContext>().Database.EnsureCreatedAsync();
 
-// 4. Hand control to the interactive timer view.
 await provider.GetRequiredService<TimerView>().RunAsync();
