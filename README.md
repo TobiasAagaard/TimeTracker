@@ -2,6 +2,25 @@
 
 A simple command-line time tracking app built with .NET 10.
 
+## Architecture
+
+TimeTracker is currently split into two .NET 10 projects:
+
+```mermaid
+flowchart LR
+	CLI[Timetracker.Cli<br/>interactive console app] --> Core[Timetracker.Core<br/>shared models + interfaces]
+	CLI --> DB[(SQLite database<br/>%LocalAppData%/timetracker/timetracker.db)]
+	CLI --> View[TimerView<br/>interactive loop]
+	CLI --> Services[TimerService<br/>task + time slot orchestration]
+	Services --> Core
+	View --> Services
+```
+
+- `cli/Timetracker.Cli` contains the executable app, the database context, and the service implementations.
+- `libs/Timetracker.Core` contains the shared domain models and service interfaces so the CLI and future API can use the same contracts.
+- The CLI creates a local SQLite database on startup, then runs an interactive prompt where you enter a task name to start tracking and press Enter, Esc, or Q to stop.
+- The current `api/` folder is reserved for a future TimeTracker API and is not implemented yet.
+
 ## Run
 
 ```bash
