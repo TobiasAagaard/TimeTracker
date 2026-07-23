@@ -7,9 +7,9 @@ namespace Timetracker.Cli.Services;
 
 public sealed class TrackedTaskService : ITrackedTaskService
 {
-    private readonly TimeTrackerDbContext _db;
+    private readonly TimeTrackerLocalDbContext _db;
 
-    public TrackedTaskService(TimeTrackerDbContext db) => _db = db;
+    public TrackedTaskService(TimeTrackerLocalDbContext db) => _db = db;
 
     public Task<TrackedTask?> GetByIdAsync(Guid id) =>
         _db.TrackedTasks.FirstOrDefaultAsync(t => t.Id == id);

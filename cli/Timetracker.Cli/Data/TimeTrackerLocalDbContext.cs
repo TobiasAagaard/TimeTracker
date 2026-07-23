@@ -3,9 +3,9 @@ using Timetracker.Core.Models;
 
 namespace Timetracker.Cli.Data;
 
-public sealed class TimeTrackerDbContext : DbContext
+public sealed class TimeTrackerLocalDbContext : DbContext
 {
-    public TimeTrackerDbContext(DbContextOptions<TimeTrackerDbContext> options)
+    public TimeTrackerLocalDbContext(DbContextOptions<TimeTrackerLocalDbContext> options)
         : base(options)
     {
     }

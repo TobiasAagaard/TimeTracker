@@ -7,9 +7,9 @@ namespace Timetracker.Cli.Services;
 
 public sealed class TimeSlotService : ITimeSlotService
 {
-    private readonly TimeTrackerDbContext _db;
+    private readonly TimeTrackerLocalDbContext _db;
 
-    public TimeSlotService(TimeTrackerDbContext db) => _db = db;
+    public TimeSlotService(TimeTrackerLocalDbContext db) => _db = db;
 
     public Task<TimeSlot?> GetRunningTimeSlotAsync() =>
         _db.TimeSlots.FirstOrDefaultAsync(s => s.EndedAtUtc == null);

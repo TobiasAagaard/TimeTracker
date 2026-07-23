@@ -12,7 +12,7 @@ var dbPath = Path.Combine(
 Directory.CreateDirectory(Path.GetDirectoryName(dbPath)!);
 
 var services = new ServiceCollection();
-services.AddDbContext<TimeTrackerDbContext>(
+services.AddDbContext<TimeTrackerLocalDbContext>(
     options => options.UseSqlite($"Data Source={dbPath}"),
     ServiceLifetime.Singleton);
 services.AddSingleton<ITrackedTaskService, TrackedTaskService>();
@@ -22,6 +22,6 @@ services.AddSingleton<TimerView>();
 
 var provider = services.BuildServiceProvider();
 
-await provider.GetRequiredService<TimeTrackerDbContext>().Database.EnsureCreatedAsync();
+await provider.GetRequiredService<TimeTrackerLocalDbContext>().Database.EnsureCreatedAsync();
 
 await provider.GetRequiredService<TimerView>().RunAsync();

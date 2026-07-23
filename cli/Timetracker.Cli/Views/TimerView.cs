@@ -87,14 +87,14 @@ public sealed class TimerView
         Console.WriteLine();
     }
 
-    /// <summary>Returns true once the user presses Enter, Esc, or Q to stop.</summary>
+    // Returns true once the user presses Enter
     private static bool StopRequested()
     {
         if (Console.IsInputRedirected || !Console.KeyAvailable)
             return false;
 
         var key = Console.ReadKey(intercept: true).Key;
-        return key is ConsoleKey.Enter or ConsoleKey.Escape or ConsoleKey.Q;
+        return key is ConsoleKey.Enter;
     }
 
     private static void SetCursorVisible(bool visible)
