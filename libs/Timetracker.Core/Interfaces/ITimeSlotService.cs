@@ -1,6 +1,6 @@
-using Timetracker.Cli.Models;
+using Timetracker.Core.Models;
 
-namespace Timetracker.Cli.Interfaces;
+namespace Timetracker.Core.Interfaces;
 
 public interface ITimeSlotService
 {

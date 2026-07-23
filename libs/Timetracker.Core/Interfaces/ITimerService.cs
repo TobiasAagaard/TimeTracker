@@ -1,4 +1,4 @@
-namespace Timetracker.Cli.Interfaces;
+namespace Timetracker.Core.Interfaces;
 public interface ITimerService
 {
     Task<RunningTimer?> GetRunningTimerAsync();

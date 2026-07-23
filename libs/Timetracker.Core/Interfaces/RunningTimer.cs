@@ -1,4 +1,4 @@
-namespace Timetracker.Cli.Interfaces;
+namespace Timetracker.Core.Interfaces;
 
 /// <summary>
 /// Snapshot of the currently running timer, returned by <see cref="ITimerService"/>.

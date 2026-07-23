@@ -1,4 +1,6 @@
-using Timetracker.Cli.Interfaces;
+using Timetracker.Core.Interfaces;
+using Timetracker.Core.Models;
+
 namespace Timetracker.Cli.Services;
 
 public class TimerService : ITimerService 
@@ -34,7 +36,7 @@ public class TimerService : ITimerService
         var task = await _trackedTaskService.GetByTitleAsync(title);
         if (task is null)
         {
-            task = new Models.TrackedTask { Title = title };
+            task = new TrackedTask { Title = title };
             await _trackedTaskService.CreateAsync(task);
         }
 

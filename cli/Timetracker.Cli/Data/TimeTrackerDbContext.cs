@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Timetracker.Cli.Models;
+using Timetracker.Core.Models;
 
 namespace Timetracker.Cli.Data;
 

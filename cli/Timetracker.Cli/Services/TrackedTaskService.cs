@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Timetracker.Cli.Data;
-using Timetracker.Cli.Interfaces;
-using Timetracker.Cli.Models;
+using Timetracker.Core.Interfaces;
+using Timetracker.Core.Models;
 
 namespace Timetracker.Cli.Services;
 

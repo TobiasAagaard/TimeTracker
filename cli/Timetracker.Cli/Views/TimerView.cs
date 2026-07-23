@@ -1,4 +1,4 @@
-using Timetracker.Cli.Interfaces;
+using Timetracker.Core.Interfaces;
 
 namespace Timetracker.Cli.Views;
 

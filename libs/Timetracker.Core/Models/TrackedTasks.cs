@@ -1,4 +1,4 @@
-namespace Timetracker.Cli.Models;
+namespace Timetracker.Core.Models;
 
 public sealed class TrackedTask
 {

@@ -2,4 +2,7 @@
   <Folder Name="/cli/">
     <Project Path="cli/Timetracker.Cli/Timetracker.Cli.csproj" />
   </Folder>
+  <Folder Name="/libs/">
+    <Project Path="libs/Timetracker.Core/Timetracker.Core.csproj" />
+  </Folder>
 </Solution>

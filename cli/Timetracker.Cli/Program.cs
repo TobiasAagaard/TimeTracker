@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Timetracker.Cli.Data;
-using Timetracker.Cli.Interfaces;
+using Timetracker.Core.Interfaces;
 using Timetracker.Cli.Services;
 using Timetracker.Cli.Views;
 
