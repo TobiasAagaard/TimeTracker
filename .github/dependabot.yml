@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/cli/Timetracker.Cli"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "nuget"
+    directory: "/libs/Timetracker.Core"
+    schedule:
+      interval: "weekly"
