@@ -1,1 +1,1 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿Console.WriteLine("Hello World!");
