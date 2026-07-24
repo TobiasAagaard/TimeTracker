@@ -6,7 +6,7 @@ public sealed class TimerView
     private static readonly string[] spinnerFrames  = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" };
     
 
-    public async Task RunAsync()
+    public static async Task RunAsync()
     {
         Console.Clear();
         Console.WriteLine("⏱  TimeTracker");
