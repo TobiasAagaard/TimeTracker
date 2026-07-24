@@ -1,7 +1,7 @@
 
 namespace TimeTracker.Cli.Views;
 
-public sealed class TimerView
+public static class TimerView
 {
     private static readonly string[] spinnerFrames  = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" };
     
