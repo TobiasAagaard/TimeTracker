@@ -7,11 +7,11 @@ public sealed class TimeSlots
     public Guid Id { get; set; } = Guid.NewGuid();
     public Guid TrackedTaskId { get; set; }
     public TrackedTasks? Task { get; set; }
-    public DateTime StartedAtUtc { get; set; } 
-    public DateTime? EndedAtUtc { get; set; }
-    public DateTime? UpdatedAtUtc { get; set; } = DateTime.UtcNow;
-    public DateTime? DeletedAtUtc { get; set; }
+    public DateTime StartedAt { get; set; } 
+    public DateTime? EndedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? DeletedAt { get; set; }
 
     [NotMapped]
-    public TimeSpan? Duration => EndedAtUtc is null ? null : EndedAtUtc - StartedAtUtc;
+    public TimeSpan? Duration => EndedAt is null ? null : EndedAt - StartedAt;
 }
