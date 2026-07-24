@@ -18,7 +18,6 @@ flowchart LR
 
 - `cli/Timetracker.Cli` contains the executable app, the database context, and the service implementations.
 - `libs/Timetracker.Core` contains the shared domain models and service interfaces so the CLI and future API can use the same contracts.
-- The CLI creates a local SQLite database on startup, then runs an interactive prompt where you enter a task name to start tracking and press Enter, Esc, or Q to stop.
 
 
 ## Run
