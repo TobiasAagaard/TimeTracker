@@ -1,8 +1,8 @@
 <Solution>
   <Folder Name="/cli/">
-    <Project Path="cli/Timetracker.Cli/Timetracker.Cli.csproj" />
+    <Project Path="cli/TimeTracker.Cli/TimeTracker.Cli.csproj" />
   </Folder>
   <Folder Name="/libs/">
-    <Project Path="libs/Timetracker.Core/Timetracker.Core.csproj" />
+    <Project Path="libs/TimeTracker.Core/TimeTracker.Core.csproj" />
   </Folder>
 </Solution>
