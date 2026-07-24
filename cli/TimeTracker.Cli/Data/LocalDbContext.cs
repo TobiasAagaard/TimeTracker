@@ -41,7 +41,7 @@ public sealed class LocalDbContext : DbContext
             entity.HasQueryFilter(t => t.DeletedAt == null);
 
             entity.HasMany(t => t.TimeSlots)
-                    .WithOne(s => s.Task!)
+                    .WithOne(s => s.Task)
                     .HasForeignKey(s => s.TrackedTaskId)
                     .OnDelete(DeleteBehavior.Cascade);
 
