@@ -5,11 +5,11 @@ using TimeTracker.Cli.Data;
 
 namespace TimeTracker.Cli.Services;
 
-public sealed class TimeSlotsService : ITimeSlotsServices
+public sealed class TimeSlotsServices : ITimeSlotsServices
 {
     private readonly LocalDbContext _dbContext;
 
-    public TimeSlotsService(LocalDbContext dbContext) => _dbContext = dbContext;
+    public TimeSlotsServices(LocalDbContext dbContext) => _dbContext = dbContext;
     public async Task<TimeSlots?> GetRunningTimeSlotAsync()
     {
         return await _dbContext.TimeSlots.FirstOrDefaultAsync(s => s.EndedAt == null);
