@@ -16,4 +16,3 @@ using (var scope = serviceProvider.CreateScope())
 }
 
 await TimerView.RunAsync();
-
