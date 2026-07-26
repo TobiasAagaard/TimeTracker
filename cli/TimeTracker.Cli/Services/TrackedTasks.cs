@@ -20,9 +20,9 @@ public sealed class TrackedTasksService : ITrackedTasks
         return await _dbContext.TrackedTasks.Where(t => t.CreatedAt.Date == DateTime.UtcNow.Date).ToListAsync();
     }
 
-    public async Task CreateTaskAsync(TrackedTasks tasks)
+    public async Task CreateTaskAsync(TrackedTasks task)
     {
-        _dbContext.TrackedTasks.Add(tasks);
+        _dbContext.TrackedTasks.Add(task);
         await _dbContext.SaveChangesAsync();
     }
 }
