@@ -5,7 +5,7 @@ namespace TimeTracker.Core.Interfaces;
 public interface ITrackedTasks
 {
     Task<TrackedTasks?> GetTaskByIdAsync(Guid taskId);
-    Task <TrackedTasks?> GetAllTasksAsync();
+    Task<List<TrackedTasks>> GetAllTasksByTodayAsync();
     Task CreateTaskAsync(TrackedTasks task);
 
 }
