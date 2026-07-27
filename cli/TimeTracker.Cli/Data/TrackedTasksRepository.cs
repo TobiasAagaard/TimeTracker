@@ -1,15 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using TimeTracker.Core.Models;
 using TimeTracker.Core.Interfaces;
-using TimeTracker.Cli.Data;
 
-namespace TimeTracker.Cli.Services;
+namespace TimeTracker.Cli.Data;
 
-public sealed class TrackedTasksService : ITrackedTasks
+public sealed class TrackedTasksRepository : ITrackedTasksRepository
 {
     private readonly LocalDbContext _dbContext;
 
-    public TrackedTasksService(LocalDbContext dbContext) => _dbContext = dbContext;
+    public TrackedTasksRepository(LocalDbContext dbContext) => _dbContext = dbContext;
 
     public async Task<TrackedTasks?> GetTaskByIdAsync(Guid taskId)
     {

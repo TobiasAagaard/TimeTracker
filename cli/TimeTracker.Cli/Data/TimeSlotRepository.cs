@@ -1,15 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using TimeTracker.Core.Models;
 using TimeTracker.Core.Interfaces;
-using TimeTracker.Cli.Data;
 
-namespace TimeTracker.Cli.Services;
+namespace TimeTracker.Cli.Data;
 
-public sealed class TimeSlotsServices : ITimeSlotsServices
+public sealed class TimeSlotsRepository : ITimeSlotsRepository
 {
     private readonly LocalDbContext _dbContext;
 
-    public TimeSlotsServices(LocalDbContext dbContext) => _dbContext = dbContext;
+    public TimeSlotsRepository(LocalDbContext dbContext) => _dbContext = dbContext;
     public async Task<TimeSlots?> GetRunningTimeSlotAsync()
     {
         return await _dbContext.TimeSlots.FirstOrDefaultAsync(s => s.EndedAt == null);
