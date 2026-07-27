@@ -6,6 +6,8 @@ public interface ITrackedTasksRepository
 {
     Task<TrackedTasks?> GetTaskByIdAsync(Guid taskId);
     Task<List<TrackedTasks>> GetAllTasksByTodayAsync();
+    Task<TrackedTasks?> GetTasksByTitleAsync(string title);
     Task CreateTaskAsync(TrackedTasks task);
+
 
 }

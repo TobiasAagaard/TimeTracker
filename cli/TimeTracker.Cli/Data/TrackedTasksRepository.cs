@@ -19,6 +19,11 @@ public sealed class TrackedTasksRepository : ITrackedTasksRepository
         return await _dbContext.TrackedTasks.Where(t => t.CreatedAt.Date == DateTime.UtcNow.Date).ToListAsync();
     }
 
+    public async Task<TrackedTasks?> GetTasksByTitleAsync(string title)
+    {
+        return await _dbContext.TrackedTasks.FirstOrDefaultAsync(t => t.Title == title);
+    }
+
     public async Task CreateTaskAsync(TrackedTasks task)
     {
         _dbContext.TrackedTasks.Add(task);
