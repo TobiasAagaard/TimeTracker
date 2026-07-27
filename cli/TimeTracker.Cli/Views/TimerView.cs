@@ -4,14 +4,21 @@ namespace TimeTracker.Cli.Views;
 
 public class TimerView
 {
-    private static readonly string[] spinnerFrames  = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" };
+    private static readonly string[] spinner  = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" };
     private readonly ITimerService _timerService;
+    private readonly ITrackedTasksRepository _trackedTasksRepository;
     private volatile bool _isRunning;
 
+    public enum TrackAction
+    {
+        None,
+        Stop,
+    }
 
-    public TimerView(ITimerService timerService)
+    public TimerView(ITimerService timerService, ITrackedTasksRepository trackedTasksRepository)
     {
         _timerService = timerService;
+        _trackedTasksRepository = trackedTasksRepository;
     }
     public async Task RunAsync()
     {
@@ -47,19 +54,85 @@ public class TimerView
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Failed to start timer for task '{title}': {ex.Message}");
+                Console.WriteLine($"Failed to start timer for task '{title}': {ex}");
                 Console.WriteLine();
                 continue;
             }
 
-            await DisplayTimerAsync();
+            await DisplayTimerAsync(title.Trim(), cts.Token);
         }
         Console.WriteLine("Exiting TimeTracker.Cli");
     }
 
-    private async Task DisplayTimerAsync()
+    private async Task<TrackAction> DisplayTimerAsync(string title, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException("DisplayTimerAsync method is not implemented yet.");
+        var running = await _timerService.GetRunningTimerAsync();
+        var startedAt = running?.StartedAt ?? DateTime.UtcNow;
+
+        Console.WriteLine($"Started tracking task: {title} ");
+        Console.WriteLine("Press Enter to stop tracking.");
+        _isRunning = true;
+
+        var action = TrackAction.None;
+        var frame = 0;
+
+        while (action == TrackAction.None && !cancellationToken.IsCancellationRequested)
+        {
+            var elapsed = DateTime.UtcNow - startedAt;
+            Console.Write($"\r  {spinner[frame]}  {FormatTimeSpan(elapsed)}   ");
+            frame = (frame + 1) % spinner.Length;
+
+            action = ReadAction();
+
+            try
+            {
+                await Task.Delay(200, cancellationToken);
+            }
+            catch (TaskCanceledException)
+            {
+                break;
+            }
+        }
+
+        if (action == TrackAction.Stop)
+        {
+            try
+            {
+                await _timerService.StopTimerAsync();
+                Console.Clear();
+               
+                var tasksToday = await _trackedTasksRepository.GetAllTasksByTodayAsync();
+                for (int i = 0; i < tasksToday.Count; i++)
+                {
+                    var task = tasksToday[i];
+                    var totalTime = task.TimeSlots.Aggregate(TimeSpan.Zero, (acc, ts) => acc + ((ts.EndedAt ?? DateTime.UtcNow) - ts.StartedAt));
+                    Console.WriteLine($"{i + 1}. {task.Title} - Time Tracked: {FormatTimeSpan(totalTime)}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nFailed to stop timer for task '{title}': {ex.Message}");
+            }
+            Console.WriteLine();
+        }
+
+        _isRunning = false;
+        return action;
+    }
+
+    private static TrackAction ReadAction()
+    {
+        if (Console.IsInputRedirected || !Console.KeyAvailable)
+        {
+            return TrackAction.None;
+        }
+
+        var key = Console.ReadKey(intercept: true);
+        return key.Key switch
+        {
+            ConsoleKey.Enter => TrackAction.Stop,
+            _ => TrackAction.None,
+        };
     }
 
     private static async Task<string?> ReadTitleAsync()
@@ -98,5 +171,10 @@ public class TimerView
                     break;
             }
         }
+    }
+
+    private static string FormatTimeSpan(TimeSpan timeSpan)
+    {
+        return $"{(int)timeSpan.TotalHours:D2}:{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
     }
 }
