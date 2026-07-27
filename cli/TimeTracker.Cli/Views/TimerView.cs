@@ -47,7 +47,6 @@ public class TimerView
             }
             catch (Exception ex)
             {
-                // TODO: Log the exception or handle it appropriately
                 Console.WriteLine($"Failed to start timer for task '{title}': {ex.Message}");
                 Console.WriteLine();
                 continue;

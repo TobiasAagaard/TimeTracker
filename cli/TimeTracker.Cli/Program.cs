@@ -19,9 +19,7 @@ using (var scope = serviceProvider.CreateScope())
 {
 	var dbContext = scope.ServiceProvider.GetRequiredService<LocalDbContext>();
 	await dbContext.Database.EnsureCreatedAsync();
+    await scope.ServiceProvider.GetRequiredService<TimerView>().RunAsync();
 }
 
 
-await serviceProvider.GetRequiredService<LocalDbContext>().Database.EnsureCreatedAsync();
-
-await serviceProvider.GetRequiredService<TimerView>().RunAsync();
