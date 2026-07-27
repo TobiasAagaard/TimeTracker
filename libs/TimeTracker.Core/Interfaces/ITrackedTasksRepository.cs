@@ -2,7 +2,7 @@ using TimeTracker.Core.Models;
 
 namespace TimeTracker.Core.Interfaces;
 
-public interface ITrackedTasks
+public interface ITrackedTasksRepository
 {
     Task<TrackedTasks?> GetTaskByIdAsync(Guid taskId);
     Task<List<TrackedTasks>> GetAllTasksByTodayAsync();
