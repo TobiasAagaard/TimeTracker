@@ -1,12 +1,18 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using TimeTracker.Cli.Views;
+using TimeTracker.Core.Interfaces;
 using TimeTracker.Cli.Data;
+using TimeTracker.Cli.Views;
+using TimeTracker.Cli.Services;
 
 
 var services = new ServiceCollection();
 
+
 services.AddDbContext<LocalDbContext>();
+services.AddScoped<ITimerService, TimerService>();
+services.AddScoped<ITrackedTasksRepository, TrackedTasksRepository>();
+services.AddScoped<ITimeSlotsRepository, TimeSlotsRepository>();
+services.AddScoped<TimerView>();
 
 using var serviceProvider = services.BuildServiceProvider();
 using (var scope = serviceProvider.CreateScope())
@@ -15,4 +21,7 @@ using (var scope = serviceProvider.CreateScope())
 	await dbContext.Database.EnsureCreatedAsync();
 }
 
-await TimerView.RunAsync();
+
+await serviceProvider.GetRequiredService<LocalDbContext>().Database.EnsureCreatedAsync();
+
+await serviceProvider.GetRequiredService<TimerView>().RunAsync();
