@@ -20,6 +20,7 @@ public sealed class TrackedTasksRepository : ITrackedTasksRepository
         var tomorrowStart = todayStart.AddDays(1);
 
         return await _dbContext.TrackedTasks
+            .AsNoTracking()
             .Where(t => t.TimeSlots.Any(s => s.StartedAt >= todayStart && s.StartedAt < tomorrowStart))
             .Include(t => t.TimeSlots.Where(s => s.StartedAt >= todayStart && s.StartedAt < tomorrowStart))
             .ToListAsync();
