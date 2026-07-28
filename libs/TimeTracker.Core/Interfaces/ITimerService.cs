@@ -7,4 +7,5 @@ public interface ITimerService
     Task<RunningTimer?> GetRunningTimerAsync();
     Task StartTimerAsync(string title);
     Task StopTimerAsync();
+    Task<IReadOnlyList<DailyTaskSummary>> GetDailyTaskSummariesAsync();
 }
