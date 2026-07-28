@@ -16,7 +16,14 @@ public sealed class TrackedTasksRepository : ITrackedTasksRepository
     }
     public async Task<List<TrackedTasks>> GetAllTasksByTodayAsync()
     {
-        return await _dbContext.TrackedTasks.Where(t => t.CreatedAt.Date == DateTime.UtcNow.Date).ToListAsync();
+        var todayStart = DateTime.UtcNow.Date;
+        var tomorrowStart = todayStart.AddDays(1);
+
+        return await _dbContext.TrackedTasks
+            .AsNoTracking()
+            .Where(t => t.TimeSlots.Any(s => s.StartedAt >= todayStart && s.StartedAt < tomorrowStart))
+            .Include(t => t.TimeSlots.Where(s => s.StartedAt >= todayStart && s.StartedAt < tomorrowStart))
+            .ToListAsync();
     }
 
     public async Task<TrackedTasks?> GetTasksByTitleAsync(string title)

@@ -6,7 +6,6 @@ public class TimerView
 {
     private static readonly string[] spinner  = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" };
     private readonly ITimerService _timerService;
-    private readonly ITrackedTasksRepository _trackedTasksRepository;
     private volatile bool _isRunning;
 
     public enum TrackAction
@@ -18,7 +17,6 @@ public class TimerView
     public TimerView(ITimerService timerService, ITrackedTasksRepository trackedTasksRepository)
     {
         _timerService = timerService;
-        _trackedTasksRepository = trackedTasksRepository;
     }
     public async Task RunAsync()
     {
@@ -101,12 +99,13 @@ public class TimerView
                 await _timerService.StopTimerAsync();
                 Console.Clear();
                
-                var tasksToday = await _trackedTasksRepository.GetAllTasksByTodayAsync();
-                for (int i = 0; i < tasksToday.Count; i++)
+                var summaries = await _timerService.GetDailyTaskSummariesAsync();
+
+                Console.WriteLine("Daily Task Summaries:");
+                Console.WriteLine();
+                foreach (var summary in summaries)
                 {
-                    var task = tasksToday[i];
-                    var totalTime = task.TimeSlots.Aggregate(TimeSpan.Zero, (acc, ts) => acc + ((ts.EndedAt ?? DateTime.UtcNow) - ts.StartedAt));
-                    Console.WriteLine($"{i + 1}. {task.Title} - Time Tracked: {FormatTimeSpan(totalTime)}");
+                    Console.WriteLine($"Task: {summary.TaskTitle}, Total Time Spent {FormatTimeSpan(summary.TotalTimeSpent)}");
                 }
             }
             catch (Exception ex)

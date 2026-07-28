@@ -60,4 +60,15 @@ public class TimerService : ITimerService
     {
         await _timeSlotsRepository.StopTimeSlotAsync();
     }
+
+    public async Task<IReadOnlyList<DailyTaskSummary>> GetDailyTaskSummariesAsync()
+    {
+        var tasks = await _trackedTasksRepository.GetAllTasksByTodayAsync();
+
+        return tasks.Select(t => new DailyTaskSummary
+        {
+            TaskTitle = t.Title,
+            TotalTimeSpent = t.TimeSlots.Aggregate(TimeSpan.Zero, (acc, ts) => acc + ((ts.EndedAt ?? DateTime.UtcNow) - ts.StartedAt))
+        }).ToList();
+    }
 }
