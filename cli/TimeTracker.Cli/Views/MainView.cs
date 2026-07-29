@@ -28,7 +28,7 @@ public class MainView
         try
         {
             await Task.Delay(Timeout.InfiniteTimeSpan, cts.Token);
-        }
+        }   
         catch (TaskCanceledException)
         {
         }
