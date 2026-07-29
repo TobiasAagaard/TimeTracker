@@ -21,14 +21,14 @@ public class TimerService : ITimerService
         
         if (runningTimeSlot is null)
         {
-            throw new InvalidOperationException("No running time slot found.");
+            return null;
         }
 
         var trackedTasks = await _trackedTasksRepository.GetTaskByIdAsync(runningTimeSlot.TrackedTaskId);
 
         if (trackedTasks is null)
         {
-            throw new InvalidOperationException("Tracked task not found for the running time slot.");
+            return null;
         }
 
         return new RunningTimer
