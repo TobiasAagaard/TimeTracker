@@ -151,7 +151,7 @@ public sealed class MainWindow : Window
         else if (key == KeyMap.Refresh)
         {
             key.Handled = true;
-            RefreshSummaries();
+            await RefreshSummaries();
         }
         else if (key == KeyMap.Help)
         {
