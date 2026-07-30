@@ -39,7 +39,7 @@ public sealed class SummaryPane : Pane
         };
 
         Add(_table, _total);
-        SetSummaries([]);
+        SetSummaries(Array.Empty<DailyTaskSummary>());
     }
 
     public void SetSummaries(IReadOnlyList<DailyTaskSummary> summaries)
@@ -54,8 +54,11 @@ public sealed class SummaryPane : Pane
         });
 
         var total = rows.Aggregate(TimeSpan.Zero, (acc, s) => acc + s.TotalTimeSpent);
+        var taskLabel = rows.Count == 1 ? "task" : "tasks";
+
         _total.Text = rows.Count == 0
             ? "nothing tracked yet today"
-            : $"{rows.Count} {(rows.Count == 1 ? "task" : "tasks")} · {TimeFormat.Hms(total)} · {TimeFormat.DecimalHours(total)} h";
+            : $"{rows.Count} {taskLabel} · {TimeFormat.Hms(total)} · {TimeFormat.DecimalHours(total)} h";
     }
+
 }
