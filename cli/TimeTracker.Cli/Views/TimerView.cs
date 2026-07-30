@@ -103,10 +103,19 @@ public class TimerView
 
                 Console.WriteLine("Daily Task Summaries:");
                 Console.WriteLine();
+
+
+
+                summaries = summaries.OrderByDescending(s => s.CreatedAt).ToList();
                 foreach (var summary in summaries)
                 {
-                    Console.WriteLine($"Task: {summary.TaskTitle}, Total Time Spent {FormatTimeSpan(summary.TotalTimeSpent)}");
+                    Console.WriteLine($"Task: {summary.TaskTitle}, Total Time Spent {FormatTimeSpanToDecimalHours(summary.TotalTimeSpent):F2}");
                 }
+
+                Console.WriteLine();
+                var totalTimeSpentToday = summaries.Aggregate(TimeSpan.Zero, (acc, s) => acc + s.TotalTimeSpent);
+                Console.WriteLine($"Total Time Spent Today: {FormatTimeSpanToDecimalHours(totalTimeSpentToday):F2} hours");
+                Console.WriteLine();
             }
             catch (Exception ex)
             {
@@ -171,9 +180,13 @@ public class TimerView
             }
         }
     }
-
     private static string FormatTimeSpan(TimeSpan timeSpan)
     {
         return $"{(int)timeSpan.TotalHours:D2}:{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+    }
+
+    private static decimal FormatTimeSpanToDecimalHours(TimeSpan timeSpan)
+    {
+        return (decimal) timeSpan.TotalHours;
     }
 }
