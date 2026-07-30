@@ -6,10 +6,6 @@ using TimeTracker.Core.DTOs;
 
 namespace TimeTracker.Cli.Views;
 
-/// <summary>
-/// The timer pane. Shows one of three states: nothing running, entering a task name, or counting up.
-/// It renders and collects input only — starting and stopping is decided by <see cref="MainWindow"/>.
-/// </summary>
 public sealed class TimerPane : Pane
 {
     private static readonly string[] SpinnerFrames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
@@ -24,10 +20,8 @@ public sealed class TimerPane : Pane
     private object? _timeoutToken;
     private int _frame;
 
-    /// <summary>Raised when the user confirms a task name with Enter.</summary>
     public event Action<string>? StartRequested;
 
-    /// <summary>Raised when the user abandons the task-name prompt with Esc.</summary>
     public event Action? InputCancelled;
 
     public TimerPane(IApplication app) : base("timer", KeyMap.FocusTimer)
@@ -89,7 +83,6 @@ public sealed class TimerPane : Pane
         _timeoutToken ??= _app.AddTimeout(TimeSpan.FromMilliseconds(100), OnTick);
     }
 
-    /// <summary>Opens the task-name prompt and puts the keyboard into it.</summary>
     public void BeginInput()
     {
         StopTicking();

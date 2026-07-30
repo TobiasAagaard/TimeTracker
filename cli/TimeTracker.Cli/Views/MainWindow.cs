@@ -8,10 +8,6 @@ using TimeTracker.Core.Interfaces;
 
 namespace TimeTracker.Cli.Views;
 
-/// <summary>
-/// The application shell: owns the idle/input/running state machine, dispatches every hotkey, and
-/// is the only view that talks to <see cref="ITimerService"/>.
-/// </summary>
 public sealed class MainWindow : Window
 {
     private enum UiState
@@ -83,19 +79,26 @@ public sealed class MainWindow : Window
         RenderHints();
     }
 
-    /// <summary>Loads today's totals and re-attaches to a timer left running by a previous session.</summary>
     public async Task LoadStateAsync()
     {
-        _summaryPane.SetSummaries(await _timerService.GetDailyTaskSummariesAsync());
-
-        var running = await _timerService.GetRunningTimerAsync();
-        if (running is not null)
+        try
         {
-            EnterRunning(running);
+            _summaryPane.SetSummaries(await _timerService.GetDailyTaskSummariesAsync());
+
+            var running = await _timerService.GetRunningTimerAsync();
+            if (running is not null)
+            {
+                EnterRunning(running);
+            }
+            else
+            {
+                EnterIdle();
+            }
         }
-        else
+        catch (Exception ex)
         {
             EnterIdle();
+            ShowError("Could not load the previous state.", ex);
         }
     }
 
@@ -108,13 +111,8 @@ public sealed class MainWindow : Window
         base.Dispose(disposing);
     }
 
-    /// <summary>
-    /// Global hotkeys. This runs ahead of view routing, so while the task-name prompt is open every
-    /// key except Esc is deliberately left alone and allowed to reach the text field.
-    /// </summary>
-    private void OnKeyDown(object? sender, Key key)
+    private async void OnKeyDown(object? sender, Key key)
     {
-        // A dialog (help, error) sits above us on the session stack and owns the keyboard until it closes.
         if (!ReferenceEquals(_app.TopRunnable, this))
         {
             return;
@@ -138,7 +136,7 @@ public sealed class MainWindow : Window
         else if (key == KeyMap.StopTimer && _state == UiState.Running)
         {
             key.Handled = true;
-            StopTimer();
+            await StopTimer();
         }
         else if (key == KeyMap.FocusTimer)
         {
@@ -193,7 +191,7 @@ public sealed class MainWindow : Window
         }
     }
 
-    private async void StopTimer()
+    private async Task StopTimer()
     {
         if (_busy)
         {
@@ -222,7 +220,7 @@ public sealed class MainWindow : Window
         }
     }
 
-    private async void RefreshSummaries()
+    private async Task RefreshSummaries()
     {
         if (_busy)
         {

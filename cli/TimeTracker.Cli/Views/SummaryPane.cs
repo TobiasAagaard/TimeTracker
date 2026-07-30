@@ -7,7 +7,6 @@ using Attribute = Terminal.Gui.Drawing.Attribute;
 
 namespace TimeTracker.Cli.Views;
 
-/// <summary>Today's per-task totals, plus the day's grand total on the last line.</summary>
 public sealed class SummaryPane : Pane
 {
     private readonly TableView _table;
@@ -24,7 +23,6 @@ public sealed class SummaryPane : Pane
             FullRowSelect = true,
         };
 
-        // Strip the grid down to plain columns of text — no rules, no boxes.
         _table.Style.ShowHorizontalHeaderOverline = false;
         _table.Style.ShowHorizontalHeaderUnderline = false;
         _table.Style.ShowHorizontalBottomLine = false;
@@ -58,6 +56,6 @@ public sealed class SummaryPane : Pane
         var total = rows.Aggregate(TimeSpan.Zero, (acc, s) => acc + s.TotalTimeSpent);
         _total.Text = rows.Count == 0
             ? "nothing tracked yet today"
-            : $"{rows.Count} task{(rows.Count == 1 ? "" : "s")} · {TimeFormat.Hms(total)} · {TimeFormat.DecimalHours(total)} h";
+            : $"{rows.Count} {(rows.Count == 1 ? "task" : "tasks")} · {TimeFormat.Hms(total)} · {TimeFormat.DecimalHours(total)} h";
     }
 }

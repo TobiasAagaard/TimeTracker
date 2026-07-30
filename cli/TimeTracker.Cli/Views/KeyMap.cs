@@ -2,10 +2,6 @@ using Terminal.Gui.Input;
 
 namespace TimeTracker.Cli.Views;
 
-/// <summary>
-/// The single source of truth for hotkeys, so the dispatcher in <see cref="MainWindow"/> and the
-/// hint bar the user reads can never drift apart.
-/// </summary>
 public static class KeyMap
 {
     public static readonly Key NewTask = Key.S;

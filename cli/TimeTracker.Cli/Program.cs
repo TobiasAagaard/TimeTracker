@@ -28,4 +28,3 @@ var mainWindow = scope.ServiceProvider.GetRequiredService<MainWindow>();
 await mainWindow.LoadStateAsync();
 
 app.Run(mainWindow);
-mainWindow.Dispose();

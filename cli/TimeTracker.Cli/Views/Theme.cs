@@ -4,18 +4,12 @@ using Attribute = Terminal.Gui.Drawing.Attribute;
 
 namespace TimeTracker.Cli.Views;
 
-/// <summary>
-/// Shared colours and pane chrome. Foregrounds are taken from the terminal's own 16-colour palette
-/// so the UI follows whatever colourscheme the user has themed their terminal with, and backgrounds
-/// are always inherited from the surrounding scheme rather than forced.
-/// </summary>
 public static class Theme
 {
     public static readonly Color Accent = new(ColorName16.BrightCyan);
     public static readonly Color Muted = new(ColorName16.DarkGray);
     public static readonly Color Active = new(ColorName16.BrightGreen);
 
-    /// <summary>Border and title: accent while focused, muted otherwise.</summary>
     public static void StylePane(View pane, bool focused)
     {
         pane.BorderStyle = LineStyle.Rounded;
