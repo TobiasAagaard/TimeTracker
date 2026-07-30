@@ -180,10 +180,6 @@ public class TimerView
             }
         }
     }
-
-
-    // if i where to change the format from HH:mm:ss to decimal hours, i would change this method to return a decimal value instead of a string. For example, I could return the total hours as a decimal value like this:
-    // private static decimal FormatTimeSpan(TimeSpan timeSpan)
     private static string FormatTimeSpan(TimeSpan timeSpan)
     {
         return $"{(int)timeSpan.TotalHours:D2}:{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
