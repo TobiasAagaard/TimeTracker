@@ -8,3 +8,7 @@ updates:
     directory: "/libs/TimeTracker.Core"
     schedule:
       interval: "weekly"
+  - package-ecosystem: "nuget"
+    directory: "/cli/TimeTracker.Cli.Tests"
+    schedule:
+      interval: "weekly"
