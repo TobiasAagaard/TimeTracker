@@ -274,9 +274,10 @@ public sealed class MainWindow : Window
             _ => Join($"{KeyMap.NewTask}  new"),
         };
 
-        static string Join(string action) =>
-            $"{action}   ·   {KeyMap.FocusTimer}/{KeyMap.FocusSummary}  panes   ·   tab  cycle   ·   " +
-            $"{KeyMap.Refresh}  refresh   ·   {KeyMap.Help}  help   ·   {KeyMap.Quit}  quit";
+        static string Join(string action) {
+            return $"{action}   ·   {KeyMap.FocusTimer}/{KeyMap.FocusSummary}  panes    ·   " +
+                   $"{KeyMap.Refresh}  refresh   ·   {KeyMap.Help}  help   ·   {KeyMap.Quit}  quit";
+        }
     }
 
     private void ShowHelp()
@@ -285,13 +286,12 @@ public sealed class MainWindow : Window
             _app,
             " keys ",
             $"""
-             {KeyMap.NewTask}          start a new task
-             {KeyMap.StopTimer}          stop the running timer
-             {KeyMap.FocusTimer} / {KeyMap.FocusSummary}      focus the timer / today pane
-             tab        cycle panes
-             {KeyMap.Refresh}          reload today's totals
-             {KeyMap.Help}          this help
-             {KeyMap.Quit} / esc    quit (a running timer keeps counting)
+             {KeyMap.NewTask} start a new task
+             {KeyMap.StopTimer} stop the running timer
+             {KeyMap.FocusTimer} / {KeyMap.FocusSummary} focus the timer / today pane
+             {KeyMap.Refresh} reload today's totals
+             {KeyMap.Help}          
+             {KeyMap.Quit} / esc quit (a running timer keeps counting)
              """,
             "close");
     }

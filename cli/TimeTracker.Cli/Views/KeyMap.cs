@@ -10,5 +10,5 @@ public static class KeyMap
     public static readonly Key FocusSummary = Key.D2;
     public static readonly Key Refresh = Key.R;
     public static readonly Key Help = (Key)'?';
-    public static readonly Key Quit = Key.Q;
+    public static readonly Key Quit = Key.Esc;
 }
