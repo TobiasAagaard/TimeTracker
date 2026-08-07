@@ -16,8 +16,8 @@ public sealed class TrackedTasksRepository : ITrackedTasksRepository
     }
     public async Task<List<TrackedTasks>> GetAllTasksByTodayAsync()
     {
-        var todayStart = DateTime.UtcNow.Date;
-        var tomorrowStart = todayStart.AddDays(1);
+        DateTime todayStart = DateTime.UtcNow.Date;
+        DateTime tomorrowStart = todayStart.AddDays(1);
 
         return await _dbContext.TrackedTasks
             .AsNoTracking()

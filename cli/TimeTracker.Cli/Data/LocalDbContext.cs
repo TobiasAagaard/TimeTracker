@@ -16,8 +16,8 @@ public sealed class LocalDbContext : DbContext
             return;
         }
 
-        var dbPath = ResolveDatabasePath();
-        var directory = Path.GetDirectoryName(dbPath);
+        string dbPath = ResolveDatabasePath();
+        string? directory = Path.GetDirectoryName(dbPath);
 
         if (!string.IsNullOrWhiteSpace(directory))
         {
@@ -57,7 +57,7 @@ public sealed class LocalDbContext : DbContext
 
     private static string ResolveDatabasePath()
     {
-        var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        string? appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
         if (string.IsNullOrWhiteSpace(appDataPath))
         {
