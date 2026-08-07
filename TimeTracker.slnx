@@ -1,9 +1,11 @@
 <Solution>
   <Folder Name="/cli/">
     <Project Path="cli/TimeTracker.Cli/TimeTracker.Cli.csproj" />
-    <Project Path="cli/TimeTracker.Test/TimeTracker.Test.csproj" />
   </Folder>
   <Folder Name="/libs/">
     <Project Path="libs/TimeTracker.Core/TimeTracker.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TimeTracker.Core.Tests/TimeTracker.Core.Tests.csproj" />
   </Folder>
 </Solution>
