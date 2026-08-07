@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Terminal.Gui.App;
 using TimeTracker.Cli.Data;
-using TimeTracker.Cli.Services;
+using TimeTracker.Core.Services;
 using TimeTracker.Cli.Views;
 using TimeTracker.Core.Interfaces;
 

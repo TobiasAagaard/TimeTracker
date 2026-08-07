@@ -4,5 +4,7 @@ public sealed record RunningTimer
 {
     public string TaskTitle { get; set; } = string.Empty;
     public DateTime StartedAt { get; set; }
-    public TimeSpan ElapsedTime => DateTime.UtcNow - StartedAt;
+    public TimeProvider TimeProvider { get; set; } = TimeProvider.System;
+
+    public TimeSpan ElapsedTime => TimeProvider.GetUtcNow().UtcDateTime - StartedAt;
 }

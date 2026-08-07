@@ -1,18 +1,21 @@
 using TimeTracker.Core.DTOs;
 using TimeTracker.Core.Interfaces;
 using TimeTracker.Core.Models;
-namespace TimeTracker.Cli.Services;
+
+namespace TimeTracker.Core.Services;
 
 public class TimerService : ITimerService
 {
 
     private readonly ITrackedTasksRepository _trackedTasksRepository;
     private readonly ITimeSlotsRepository _timeSlotsRepository;
+    private readonly TimeProvider _timeProvider;
 
-    public TimerService(ITrackedTasksRepository trackedTasksRepository, ITimeSlotsRepository timeSlotsRepository)
+    public TimerService(ITrackedTasksRepository trackedTasksRepository, ITimeSlotsRepository timeSlotsRepository, TimeProvider timeProvider)
     {
         _trackedTasksRepository = trackedTasksRepository;
         _timeSlotsRepository = timeSlotsRepository;
+        _timeProvider = timeProvider;
     }
     
     public async Task<RunningTimer?> GetRunningTimerAsync()
@@ -34,7 +37,8 @@ public class TimerService : ITimerService
         return new RunningTimer
         {
             TaskTitle = trackedTasks.Title,
-            StartedAt = runningTimeSlot.StartedAt
+            StartedAt = runningTimeSlot.StartedAt,
+            TimeProvider = _timeProvider
         };
     }
 
