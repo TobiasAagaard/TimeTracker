@@ -16,7 +16,7 @@ public sealed class TimeSlotsRepository : ITimeSlotsRepository
 
     public async Task StartTimeSlotAsync(Guid trackedTaskId)
     {
-        var StartedAt = DateTime.UtcNow;
+        DateTime StartedAt = DateTime.UtcNow;
         _dbContext.TimeSlots.Add(new TimeSlots
         {
             TrackedTaskId = trackedTaskId,
@@ -28,7 +28,7 @@ public sealed class TimeSlotsRepository : ITimeSlotsRepository
 
     public async Task StopTimeSlotAsync()
     {
-        var runningTimeSlot = await GetRunningTimeSlotAsync();
+        TimeSlots? runningTimeSlot = await GetRunningTimeSlotAsync();
 
         if (runningTimeSlot is null)
         {
