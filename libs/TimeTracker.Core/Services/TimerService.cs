@@ -72,7 +72,7 @@ public class TimerService : ITimerService
         return tasks.Select(t => new DailyTaskSummary
         {
             TaskTitle = t.Title,
-            TotalTimeSpent = t.TimeSlots.Aggregate(TimeSpan.Zero, (acc, ts) => acc + ((ts.EndedAt ?? DateTime.UtcNow) - ts.StartedAt))
+            TotalTimeSpent = t.TimeSlots.Aggregate(TimeSpan.Zero, (acc, ts) => acc + ((ts.EndedAt ?? _timeProvider.GetUtcNow().UtcDateTime) - ts.StartedAt))
         }).ToList();
     }
 }
