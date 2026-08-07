@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Terminal.Gui.App;
 using TimeTracker.Cli.Data;
-using TimeTracker.Cli.Services;
+using TimeTracker.Core.Services;
 using TimeTracker.Cli.Views;
 using TimeTracker.Core.Interfaces;
 
@@ -10,6 +10,7 @@ using var app = Application.Create();
 var services = new ServiceCollection();
 
 services.AddDbContext<LocalDbContext>();
+services.AddSingleton<TimeProvider>(TimeProvider.System);
 services.AddScoped<ITimerService, TimerService>();
 services.AddScoped<ITrackedTasksRepository, TrackedTasksRepository>();
 services.AddScoped<ITimeSlotsRepository, TimeSlotsRepository>();

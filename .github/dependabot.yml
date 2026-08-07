@@ -1,10 +1,12 @@
 version: 2
 updates:
   - package-ecosystem: "nuget"
-    directory: "/cli/TimeTracker.Cli"
+    directories:
+      - "/cli/TimeTracker.Cli"
+      - "/libs/TimeTracker.Core"
+      - "/tests/TimeTracker.Core.Tests"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "nuget"
-    directory: "/libs/TimeTracker.Core"
-    schedule:
-      interval: "weekly"
+    groups:
+      nuget-minor-patch:
+        update-types: ["minor", "patch"]

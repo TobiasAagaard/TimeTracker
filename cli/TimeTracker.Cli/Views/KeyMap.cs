@@ -4,7 +4,7 @@ namespace TimeTracker.Cli.Views;
 
 public static class KeyMap
 {
-    public static readonly Key NewTask = Key.S;
+    public static readonly Key NewTask = Key.N;
     public static readonly Key StopTimer = Key.Enter;
     public static readonly Key FocusTimer = Key.D1;
     public static readonly Key FocusSummary = Key.D2;

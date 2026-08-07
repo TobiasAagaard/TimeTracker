@@ -5,4 +5,7 @@
   <Folder Name="/libs/">
     <Project Path="libs/TimeTracker.Core/TimeTracker.Core.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TimeTracker.Core.Tests/TimeTracker.Core.Tests.csproj" />
+  </Folder>
 </Solution>
